@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+        }
+        #forms{
+            margin: auto;
+           justify-items: center;
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 15vh;
+            text-align: center;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1> Expenses Tracker</h1><br>
+    <form id="forms" onsubmit="store()">
+        <p>Select Month</p>
+        <select name="months" id="months_name">
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+        </select>
+       <p>Income</p>
+       <input type="number" name="income">
+       <p>Expense</p>
+       <input type="number" name="expanse"><br>
+       
+    </form>
+    <button onsubmit="store()">Submit</button>
+    <div id="box"></div>
+    <script>
+        const store=()=>{
+            event.preventDefault();
+            var expanse_tracker=localStorage.getItem("expanse_tracker")
+            if(expanse_tracker === null){
+                localStorage.setItem("expanse_tracker", "[]")
+            }
+            var form=document.getElementById("forms")
+            var month=form["months"].value
+            var income=form['income'].value
+            var expanse=form["expanse"].value
+            
+            var data={
+                month,income,expanse
+            }
+            console.log(data)
+            var arr=JSON.parse(localStorage.getItem("expanse_tracker"))
+           arr.push(data)
+            console.log(arr)
+            localStorage.setItem("expanse_tracker",JSON.stringify(arr))
+            show()
+        }
+
+        var box=document.getElementById("box")
+        const show=()=>{
+           box.innerHTML=null
+
+           let arr=JSON.parse(localStorage.getItem("expanse_tracker"))
+
+           arr.forEach((ele) => {
+               var div=document.createElement("div")
+
+               let month=document.createElement("p")
+               month.innerText=ele.month
+
+               let income=document.createElement("p")
+
+               income.innerText=`Your income is Rs ${ele.income}/-`
+
+               let expense=document.createElement("p")
+               expense.innerText=`Your expense is Rs ${ele.expanse}/-`
+
+               let saving=ele.income-ele.expanse
+
+               let save=document.createElement("p")
+               save.innerText=`Your Savings are Rs ${`
+
+           });
+        }
+    </script>
+</div>
+</body>
+</html>
